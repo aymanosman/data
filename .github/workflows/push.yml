@@ -21,6 +21,7 @@ jobs:
         with:
           architecture: x64
           distribution: minimal
+          packages: 'compiler-lib'
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
 
