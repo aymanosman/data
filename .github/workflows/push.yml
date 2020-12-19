@@ -1,0 +1,32 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+
+    strategy:
+      matrix:
+        racket-version: [ '7.8', '7.9' ]
+        racket-variant: [ 'CS', 'BC' ]
+
+    name: Racket ${{ matrix.racket-version }} [${{ matrix.racket-variant }}]
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v0.12
+        with:
+          architecture: x64
+          variant: ${{ matrix.racket-variant }}
+          version: ${{ matrix.racket-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.racket/download-cache
+          key: "${{ runner.os }}"
+
+      - run: raco pkg install --auto --batch --no-docs
+      - run: raco test -j 4 .
