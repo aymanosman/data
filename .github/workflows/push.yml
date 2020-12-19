@@ -32,5 +32,5 @@ jobs:
 
       - run: raco pkg install --auto --batch --no-docs
         working-directory: ./data-test
-      - run: raco test -j 4 .
+      - run: raco test tests/data/heap2.rkt
         working-directory: ./data-test
