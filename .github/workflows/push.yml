@@ -30,4 +30,6 @@ jobs:
           key: "${{ runner.os }}"
 
       - run: raco pkg install --auto --batch --no-docs
+        working-directory: ./data-test
       - run: raco test -j 4 .
+        working-directory: ./data-test
